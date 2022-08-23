@@ -1,8 +1,9 @@
 import { Flex, Image } from "native-base";
 import { Dimensions } from "react-native";
-import HomeButtons from "../components/HomeButtons";
 
 import { useAppNavigation } from "../hooks/navigationHooks";
+
+import HomeButtons from "../components/HomeButtons";
 
 const { width } = Dimensions.get("screen");
 

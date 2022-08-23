@@ -1,4 +1,4 @@
-import { NativeBaseProvider, StatusBar } from "native-base";
+import { Image, NativeBaseProvider, StatusBar } from "native-base";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -14,9 +14,29 @@ const Stack = createNativeStackNavigator<NavParams>();
 function NavStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="MapScreen" component={MapScreen} />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MapScreen"
+          component={MapScreen}
+          options={{
+            headerBackVisible: false,
+            headerTitle: "",
+            headerLeft: () => (
+              <Image
+                source={require("./assets/title.png")}
+                alt="Alternate Text"
+                resizeMode="center"
+                height={50}
+                w={100}
+              />
+            ),
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
