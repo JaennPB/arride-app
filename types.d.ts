@@ -1,1 +1,4 @@
-type NavParams = {};
+type NavParams = {
+  HomeScreen: undefined;
+  MapScreen: undefined;
+};
