@@ -1,25 +1,38 @@
 import { Flex } from "native-base";
 
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import MapView, { Marker } from "react-native-maps";
+
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const MapScreen: React.FC = () => {
+  const origin = useAppSelector((state) => state.origin)!;
+
   return (
-    <Flex flex={1} p={5} bg="white">
-      <GooglePlacesAutocomplete
-        placeholder="Where from?"
-        debounce={400}
-        nearbyPlacesAPI="GooglePlacesSearch"
-        query={{
-          key: "AIzaSyDu0tEXYHRZPyzekpYDWQ-kj5Sc4ry8X3w",
-          language: "en",
-        }}
-        styles={{
-          container: { flex: 0 },
-          textInput: { fontSize: 18 },
-          description: { fontSize: 18 },
-        }}
-        enablePoweredByContainer={false}
-      />
+    <Flex flex={1}>
+      <Flex flex={1}>
+        <MapView
+          style={{ flex: 1 }}
+          mapType="mutedStandard"
+          initialRegion={{
+            latitude: origin?.lat,
+            longitude: origin?.lng,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+          }}
+        >
+          {origin && (
+            <Marker
+              coordinate={{
+                latitude: origin?.lat,
+                longitude: origin?.lng,
+              }}
+              title="From here"
+              description="Let's go!"
+            />
+          )}
+        </MapView>
+      </Flex>
+      <Flex flex={1}></Flex>
     </Flex>
   );
 };

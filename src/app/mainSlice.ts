@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Point } from "react-native-google-places-autocomplete";
 
 interface MainState {
-  origin: string | undefined;
-  destination: string | undefined;
+  origin: Point | undefined;
+  destination: Point | undefined;
   ETA: number | undefined;
 }
 
@@ -16,10 +17,10 @@ const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    setOrigin: (state, action: PayloadAction<string>) => {
+    setOrigin: (state, action: PayloadAction<Point | undefined>) => {
       state.origin = action.payload;
     },
-    setDestination: (state, action: PayloadAction<string>) => {
+    setDestination: (state, action: PayloadAction<Point | undefined>) => {
       state.destination = action.payload;
     },
     setETA: (state, action: PayloadAction<number>) => {

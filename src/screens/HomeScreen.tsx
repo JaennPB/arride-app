@@ -11,7 +11,7 @@ const HomeScreen: React.FC = () => {
   const navigation = useAppNavigation();
 
   function navigateToMapHandler() {
-    navigation.navigate("MapScreen");
+    navigation.navigate("OriginScreen");
   }
 
   return (
