@@ -1,38 +1,31 @@
-import { Flex } from "native-base";
+import { Flex, KeyboardAvoidingView } from "native-base";
 
-import MapView, { Marker } from "react-native-maps";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { useAppSelector } from "../hooks/reduxHooks";
+import Map from "../components/Map";
+import ChooseRideScreen from "./nested/ChooseRideScreen";
+import DestinationScreen from "./nested/DestinationScreen";
+
+const NestedStack = createNativeStackNavigator<NavParams>();
 
 const MapScreen: React.FC = () => {
-  const origin = useAppSelector((state) => state.origin)!;
-
   return (
     <Flex flex={1}>
       <Flex flex={1}>
-        <MapView
-          style={{ flex: 1 }}
-          mapType="mutedStandard"
-          initialRegion={{
-            latitude: origin?.lat,
-            longitude: origin?.lng,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          }}
-        >
-          {origin && (
-            <Marker
-              coordinate={{
-                latitude: origin?.lat,
-                longitude: origin?.lng,
-              }}
-              title="From here"
-              description="Let's go!"
-            />
-          )}
-        </MapView>
+        <Map />
       </Flex>
-      <Flex flex={1}></Flex>
+      <KeyboardAvoidingView flex={1} behavior="padding">
+        <NestedStack.Navigator screenOptions={{ headerShown: false }}>
+          <NestedStack.Screen
+            name="DestinationScreen"
+            component={DestinationScreen}
+          />
+          <NestedStack.Screen
+            name="ChooseRideScreen"
+            component={ChooseRideScreen}
+          />
+        </NestedStack.Navigator>
+      </KeyboardAvoidingView>
     </Flex>
   );
 };
