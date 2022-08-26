@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "native-base";
+import { Divider, Flex, Heading } from "native-base";
 
 import {
   GooglePlaceData,
@@ -9,8 +9,10 @@ import {
 import { useAppNavigation } from "../../hooks/navigationHooks";
 
 import { setDestination } from "../../app/mainSlice";
-import Favorites from "../../components/Favorites";
 import { useAppDispatch } from "../../hooks/reduxHooks";
+
+import Favorites from "../../components/Favorites";
+import RideTypeButtons from "../../components/RideTypeButtons";
 
 const DestinationScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -31,10 +33,10 @@ const DestinationScreen: React.FC = () => {
 
   return (
     <>
-      <Box p={5} borderBottomWidth={1} borderBottomColor="#ddd">
+      <Flex py={5}>
         <Heading textAlign="center">Good morning, Jaenn</Heading>
-      </Box>
-      <Box px={5} mt={5}>
+      </Flex>
+      <Flex px={5}>
         <GooglePlacesAutocomplete
           placeholder="Where to?"
           debounce={400}
@@ -54,7 +56,11 @@ const DestinationScreen: React.FC = () => {
             getDestinationDetailsHandler(details, data)
           }
         />
-      </Box>
+      </Flex>
+      <Flex flexDir="row" justify="space-around" my={5}>
+        <RideTypeButtons />
+      </Flex>
+      <Divider />
       <Flex px={5}>
         <Favorites />
       </Flex>
