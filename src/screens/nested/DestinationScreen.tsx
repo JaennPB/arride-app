@@ -1,6 +1,7 @@
-import { Box, Heading } from "native-base";
+import { Box, Flex, Heading } from "native-base";
 
 import {
+  GooglePlaceData,
   GooglePlaceDetail,
   GooglePlacesAutocomplete,
 } from "react-native-google-places-autocomplete";
@@ -8,14 +9,23 @@ import {
 import { useAppNavigation } from "../../hooks/navigationHooks";
 
 import { setDestination } from "../../app/mainSlice";
+import Favorites from "../../components/Favorites";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 
 const DestinationScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigation();
 
-  function getDestinationDetailsHandler(details: GooglePlaceDetail | null) {
-    dispatch(setDestination(details?.geometry.location));
+  function getDestinationDetailsHandler(
+    details: GooglePlaceDetail | null,
+    data: GooglePlaceData | null
+  ) {
+    dispatch(
+      setDestination({
+        coords: details?.geometry.location,
+        description: data?.description,
+      })
+    );
     navigation.navigate("ChooseRideScreen");
   }
 
@@ -24,7 +34,7 @@ const DestinationScreen: React.FC = () => {
       <Box p={5} borderBottomWidth={1} borderBottomColor="#ddd">
         <Heading textAlign="center">Good morning, Jaenn</Heading>
       </Box>
-      <Box p={5}>
+      <Box px={5} mt={5}>
         <GooglePlacesAutocomplete
           placeholder="Where to?"
           debounce={400}
@@ -41,10 +51,13 @@ const DestinationScreen: React.FC = () => {
           enablePoweredByContainer={false}
           fetchDetails={true}
           onPress={(data, details = null) =>
-            getDestinationDetailsHandler(details)
+            getDestinationDetailsHandler(details, data)
           }
         />
       </Box>
+      <Flex px={5}>
+        <Favorites />
+      </Flex>
     </>
   );
 };

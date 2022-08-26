@@ -1,29 +1,64 @@
+import { useEffect, useRef } from "react";
 import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 
 import { useAppSelector } from "../hooks/reduxHooks";
 
 const Map: React.FC = () => {
   const origin = useAppSelector((state) => state.origin)!;
+  const destination = useAppSelector((state) => state.destination);
+
+  const mapRef = useRef<MapView>(null);
+
+  useEffect(() => {
+    mapRef.current?.fitToSuppliedMarkers(["origin", "destination"], {
+      edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+    });
+  }, [origin, destination]);
 
   return (
     <MapView
+      ref={mapRef}
       style={{ flex: 1 }}
       mapType="mutedStandard"
       initialRegion={{
-        latitude: origin?.lat,
-        longitude: origin?.lng,
+        latitude: origin.coords?.lat!,
+        longitude: origin.coords?.lng!,
         latitudeDelta: 0.005,
         longitudeDelta: 0.005,
       }}
     >
-      <Marker
-        coordinate={{
-          latitude: origin?.lat,
-          longitude: origin?.lng,
-        }}
-        title="From here"
-        description="Let's go!"
-      />
+      {origin && destination && (
+        <MapViewDirections
+          origin={origin.description}
+          destination={destination.description}
+          strokeWidth={3}
+          strokeColor="#000"
+          apikey="AIzaSyDu0tEXYHRZPyzekpYDWQ-kj5Sc4ry8X3w"
+        />
+      )}
+      {origin?.coords && (
+        <Marker
+          coordinate={{
+            latitude: origin.coords?.lat!,
+            longitude: origin.coords?.lng!,
+          }}
+          title="From here"
+          description={origin.description}
+          identifier="origin"
+        />
+      )}
+      {destination?.coords && (
+        <Marker
+          coordinate={{
+            latitude: destination.coords?.lat!,
+            longitude: destination.coords?.lng!,
+          }}
+          title="To here"
+          description={origin.description}
+          identifier="destination"
+        />
+      )}
     </MapView>
   );
 };

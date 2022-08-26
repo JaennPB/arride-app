@@ -1,6 +1,7 @@
 import { Flex, Heading } from "native-base";
 
 import {
+  GooglePlaceData,
   GooglePlaceDetail,
   GooglePlacesAutocomplete,
 } from "react-native-google-places-autocomplete";
@@ -8,14 +9,23 @@ import {
 import { useAppNavigation } from "../hooks/navigationHooks";
 
 import { setOrigin } from "../app/mainSlice";
+import Favorites from "../components/Favorites";
 import { useAppDispatch } from "../hooks/reduxHooks";
 
 const OriginScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigation();
 
-  function getOriginDetailsHandler(details: GooglePlaceDetail | null) {
-    dispatch(setOrigin(details?.geometry.location));
+  function getOriginDetailsHandler(
+    details: GooglePlaceDetail | null,
+    data: GooglePlaceData | null
+  ) {
+    dispatch(
+      setOrigin({
+        coords: details?.geometry.location,
+        description: data?.description,
+      })
+    );
     navigation.navigate("MapScreen");
   }
 
@@ -37,8 +47,11 @@ const OriginScreen: React.FC = () => {
         }}
         enablePoweredByContainer={false}
         fetchDetails={true}
-        onPress={(data, details = null) => getOriginDetailsHandler(details)}
+        onPress={(data, details = null) =>
+          getOriginDetailsHandler(details, data)
+        }
       />
+      <Favorites />
     </Flex>
   );
 };
