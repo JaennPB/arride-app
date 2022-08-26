@@ -9,8 +9,9 @@ import {
 import { useAppNavigation } from "../hooks/navigationHooks";
 
 import { setOrigin } from "../app/mainSlice";
-import Favorites from "../components/Favorites";
 import { useAppDispatch } from "../hooks/reduxHooks";
+
+import Favorites from "../components/Favorites";
 
 const OriginScreen: React.FC = () => {
   const dispatch = useAppDispatch();

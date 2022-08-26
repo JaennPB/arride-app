@@ -3,5 +3,5 @@ type NavParams = {
   OriginScreen: undefined;
   MapScreen: undefined;
   DestinationScreen: undefined;
-  ChooseRideScreen: undefined;
+  ChooseRideScreen: { rideType: "ride" | "package" };
 };

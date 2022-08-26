@@ -10,12 +10,14 @@ interface MainState {
   origin: CoordsData | undefined;
   destination: CoordsData | undefined;
   ETA: number | undefined;
+  rideType: "ride" | "package";
 }
 
 const initialState: MainState = {
   origin: undefined,
   destination: undefined,
   ETA: undefined,
+  rideType: "ride",
 };
 
 const mainSlice = createSlice({
@@ -31,8 +33,12 @@ const mainSlice = createSlice({
     setETA: (state, action: PayloadAction<number>) => {
       state.ETA = action.payload;
     },
+    setRideType: (state, action: PayloadAction<"ride" | "package">) => {
+      state.rideType = action.payload;
+    },
   },
 });
 
-export const { setOrigin, setDestination, setETA } = mainSlice.actions;
+export const { setOrigin, setDestination, setETA, setRideType } =
+  mainSlice.actions;
 export default mainSlice.reducer;

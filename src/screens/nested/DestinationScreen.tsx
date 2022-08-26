@@ -9,7 +9,7 @@ import {
 import { useAppNavigation } from "../../hooks/navigationHooks";
 
 import { setDestination } from "../../app/mainSlice";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 
 import Favorites from "../../components/Favorites";
 import RideTypeButtons from "../../components/RideTypeButtons";
@@ -17,6 +17,8 @@ import RideTypeButtons from "../../components/RideTypeButtons";
 const DestinationScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigation();
+
+  const rideType = useAppSelector((state) => state.rideType);
 
   function getDestinationDetailsHandler(
     details: GooglePlaceDetail | null,
@@ -28,13 +30,15 @@ const DestinationScreen: React.FC = () => {
         description: data?.description,
       })
     );
-    navigation.navigate("ChooseRideScreen");
+    navigation.navigate("ChooseRideScreen", { rideType });
   }
 
   return (
     <>
       <Flex py={5}>
-        <Heading textAlign="center">Good morning, Jaenn</Heading>
+        <Heading textAlign="center" color="trueGray.700">
+          Good morning, Jaenn
+        </Heading>
       </Flex>
       <Flex px={5}>
         <GooglePlacesAutocomplete
