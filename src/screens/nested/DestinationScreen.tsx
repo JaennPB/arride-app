@@ -46,8 +46,12 @@ const DestinationScreen: React.FC = () => {
           }}
           styles={{
             container: { flex: 0 },
-            textInput: { fontSize: 18 },
-            description: { fontSize: 18 },
+            textInput: {
+              fontSize: 18,
+              fontFamily: "Poppins_400Regular",
+              borderRadius: 10,
+            },
+            description: { fontSize: 18, fontFamily: "Poppins_400Regular" },
           }}
           enablePoweredByContainer={false}
           fetchDetails={true}

@@ -1,7 +1,7 @@
 import { Box, Divider, FlatList, Flex, Pressable, Text } from "native-base";
 import { ListRenderItemInfo } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 
 type DATA_OBJ = {
   location: string;
@@ -13,10 +13,23 @@ const DATA: DATA_OBJ[] = [
   {
     location: "Home",
     icon: "home",
-    destination: "Sor Juana Ines de la Cruz 204",
+    destination: "Av Nuevo León 26, Colonia Condesa, CDMX",
   },
-  { location: "Work", icon: "briefcase", destination: "Microsoft" },
-  { location: "Partner", icon: "person", destination: "Villa Marino 130" },
+  {
+    location: "Work",
+    icon: "briefcase",
+    destination: "Av. Paseo de la Reforma,  CDMX",
+  },
+  {
+    location: "Partner",
+    icon: "person",
+    destination: "Ariosto 12, Polanco, CDMX",
+  },
+  {
+    location: "Add favorite",
+    icon: "add",
+    destination: "",
+  },
 ];
 
 const Favorites: React.FC = () => {
@@ -48,24 +61,32 @@ const Favorites: React.FC = () => {
           {item.icon === "person" && (
             <Ionicons name="person" size={24} color="white" />
           )}
+          {item.icon === "add" && (
+            <Feather name="plus" size={24} color="white" />
+          )}
         </Box>
         <Flex>
-          <Text fontWeight="bold" fontSize="md">
+          <Text fontFamily="Poppins_600SemiBold" fontSize={18}>
             {item.location}
           </Text>
-          <Text color="trueGray.500">{item.destination}</Text>
+          {item.icon != "add" && (
+            <Text color="trueGray.500" fontFamily="Poppins_400Regular">
+              {item.destination}
+            </Text>
+          )}
         </Flex>
       </Pressable>
     );
   }
 
   return (
-    // TODO: add divider
-    <FlatList
-      data={DATA}
-      renderItem={renderFavoritesListHandler}
-      ItemSeparatorComponent={() => <Divider />}
-    />
+    <>
+      <FlatList
+        data={DATA}
+        renderItem={renderFavoritesListHandler}
+        ItemSeparatorComponent={() => <Divider />}
+      />
+    </>
   );
 };
 

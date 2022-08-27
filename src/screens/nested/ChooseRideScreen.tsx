@@ -54,6 +54,7 @@ const ChooseRideScreen: React.FC = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: `Choose a ride - ${infoMatrix?.distance.text}`,
+      headerTitleStyle: { fontFamily: "Poppins_600SemiBold" },
       headerStyle: { backgroundColor: "#f5f5f5" },
       headerShadowVisible: false,
       headerBackTitleVisible: false,
@@ -71,17 +72,16 @@ const ChooseRideScreen: React.FC = () => {
       <Pressable
         key={itemData.index}
         flexDir="row"
-        my={5}
+        p={5}
         alignItems="center"
         _pressed={{ opacity: 0.5 }}
         w="100%"
-        h={50}
+        h={90}
         onPress={() => selectRideHandler(item.title)}
         bg={item.title === selected ? "trueGray.200" : null}
       >
         <Box
           borderRadius={100}
-          p={3}
           w="15%"
           alignItems="center"
           justifyContent="center"
@@ -110,15 +110,16 @@ const ChooseRideScreen: React.FC = () => {
           px={5}
         >
           <Flex>
-            <Text fontWeight="bold" fontSize="md">
+            <Text fontSize={18} fontFamily="Poppins_600SemiBold">
               {item.title}
             </Text>
-            <Text color="trueGray.500">
-              {item.title != "Arride Express" && infoMatrix?.duration.text}
-              {item.title === "Arride Express" && expressTime}
+            <Text color="trueGray.500" fontFamily="Poppins_400Regular">
+              {item.title != "Arride Express" &&
+                `ETA - ${infoMatrix?.duration.text}`}
+              {item.title === "Arride Express" && `ETA - ${expressTime}`}
             </Text>
           </Flex>
-          <Heading>
+          <Heading fontFamily="Poppins_600SemiBold">
             {new Intl.NumberFormat("en-us", {
               style: "currency",
               currency: "USD",
@@ -130,7 +131,7 @@ const ChooseRideScreen: React.FC = () => {
   }
 
   return (
-    <Flex flex={1} px={5}>
+    <Flex flex={1}>
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={route.params.rideType === "ride" ? DATA_RIDE : DATA_PACKAGE}
@@ -145,6 +146,9 @@ const ChooseRideScreen: React.FC = () => {
           size="lg"
           _pressed={{ opacity: 0.5 }}
           onPress={() => console.log("pressed")}
+          mx={5}
+          shadow={3}
+          _text={{ fontFamily: "Poppins_600SemiBold", fontSize: 18 }}
         >
           {!selected ? "Choose..." : `Choose ${selected}`}
         </Button>

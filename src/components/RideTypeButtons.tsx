@@ -29,6 +29,7 @@ const RideTypeButtons: React.FC = () => {
           justifyContent="center"
           space={2}
           bg={rideType === "ride" ? "trueGray.700" : null}
+          shadow={rideType === "ride" ? 3 : null}
           p={2}
           borderRadius={20}
           w={120}
@@ -38,7 +39,11 @@ const RideTypeButtons: React.FC = () => {
             size={24}
             color={rideType === "ride" ? "white" : "#404040"}
           />
-          <Text color={rideType === "ride" ? "white" : "#404040"} fontSize={16}>
+          <Text
+            color={rideType === "ride" ? "white" : "#404040"}
+            fontSize={16}
+            fontFamily="Poppins_400Regular"
+          >
             Ride
           </Text>
         </HStack>
@@ -48,6 +53,7 @@ const RideTypeButtons: React.FC = () => {
           alignItems="center"
           space={2}
           bg={rideType === "package" ? "trueGray.700" : null}
+          shadow={rideType === "package" ? 3 : null}
           p={2}
           borderRadius={20}
           justifyContent="center"
@@ -61,6 +67,7 @@ const RideTypeButtons: React.FC = () => {
           <Text
             color={rideType === "package" ? "white" : "#404040"}
             fontSize={16}
+            fontFamily="Poppins_400Regular"
           >
             Package
           </Text>

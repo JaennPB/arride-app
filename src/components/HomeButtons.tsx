@@ -18,7 +18,7 @@ const HomeButtons: React.FC<Props> = ({ onPress }) => {
       >
         <Ionicons name="ios-car-sport-sharp" size={50} color="white" />
         <Flex flexDir="row" align="center" mt={10}>
-          <Heading color="white" mr={2}>
+          <Heading color="white" mr={2} fontFamily="Poppins_600SemiBold">
             Get a ride
           </Heading>
           <Ionicons name="arrow-forward-circle-sharp" size={30} color="white" />
@@ -33,7 +33,7 @@ const HomeButtons: React.FC<Props> = ({ onPress }) => {
       >
         <Ionicons name="fast-food-sharp" size={50} color="white" />
         <Flex flexDir="row" align="center" mt={10}>
-          <Heading color="white" mr={2}>
+          <Heading color="white" mr={2} fontFamily="Poppins_600SemiBold">
             Get food
           </Heading>
           <Ionicons name="arrow-forward-circle-sharp" size={30} color="white" />

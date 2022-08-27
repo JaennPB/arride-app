@@ -57,7 +57,7 @@ const Map: React.FC = () => {
           origin={origin.description}
           destination={destination.description}
           strokeWidth={3}
-          strokeColor="#000"
+          strokeColor="#404040"
           apikey="AIzaSyDu0tEXYHRZPyzekpYDWQ-kj5Sc4ry8X3w"
         />
       )}

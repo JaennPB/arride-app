@@ -32,7 +32,9 @@ const OriginScreen: React.FC = () => {
 
   return (
     <Flex flex={1} p={5}>
-      <Heading mb={5}>Choose an origin</Heading>
+      <Heading mb={5} fontFamily="Poppins_600SemiBold">
+        Choose an origin
+      </Heading>
       <GooglePlacesAutocomplete
         placeholder="Where from?"
         debounce={400}
@@ -43,8 +45,12 @@ const OriginScreen: React.FC = () => {
         }}
         styles={{
           container: { flex: 0 },
-          textInput: { fontSize: 18 },
-          description: { fontSize: 18 },
+          textInput: {
+            fontSize: 18,
+            fontFamily: "Poppins_400Regular",
+            borderRadius: 10,
+          },
+          description: { fontSize: 18, fontFamily: "Poppins_400Regular" },
         }}
         enablePoweredByContainer={false}
         fetchDetails={true}
