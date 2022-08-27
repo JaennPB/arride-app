@@ -19,7 +19,7 @@ import {
   Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useAppNavigation } from "../../hooks/navigationHooks";
 
 type DATA_OBJ = {
@@ -41,6 +41,9 @@ const DATA_PACKAGE: DATA_OBJ[] = [
 
 const ChooseRideScreen: React.FC = () => {
   const navigation = useAppNavigation();
+
+  const [selected, setSelected] = useState("");
+
   const route = useRoute<RouteProp<NavParams, "ChooseRideScreen">>();
 
   useLayoutEffect(() => {
@@ -51,6 +54,10 @@ const ChooseRideScreen: React.FC = () => {
       headerBackTitleVisible: false,
     });
   }, []);
+
+  function selectRideHandler(title: string) {
+    setSelected(title);
+  }
 
   function renderRideOptionHandler(itemData: ListRenderItemInfo<DATA_OBJ>) {
     const item = itemData.item;
@@ -64,6 +71,8 @@ const ChooseRideScreen: React.FC = () => {
         _pressed={{ opacity: 0.5 }}
         w="100%"
         h={50}
+        onPress={() => selectRideHandler(item.title)}
+        bg={item.title === selected ? "trueGray.200" : null}
       >
         <Box
           borderRadius={100}
@@ -119,10 +128,12 @@ const ChooseRideScreen: React.FC = () => {
         <Button
           bg="trueGray.700"
           colorScheme="trueGray"
-          borderRadius={20}
+          borderRadius={30}
           size="lg"
+          _pressed={{ opacity: 0.5 }}
+          onPress={() => console.log("pressed")}
         >
-          Choose...
+          {!selected ? "Choose..." : `Choose ${selected}`}
         </Button>
       </SafeAreaView>
     </Flex>
