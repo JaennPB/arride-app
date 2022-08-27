@@ -21,6 +21,7 @@ import {
 } from "@expo/vector-icons";
 import { useLayoutEffect, useState } from "react";
 import { useAppNavigation } from "../../hooks/navigationHooks";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
 type DATA_OBJ = {
   title: string;
@@ -42,18 +43,22 @@ const DATA_PACKAGE: DATA_OBJ[] = [
 const ChooseRideScreen: React.FC = () => {
   const navigation = useAppNavigation();
 
+  const infoMatrix = useAppSelector((state) => state.infoMatrix);
+  const expressTime =
+    Math.floor((infoMatrix?.duration.value! - 300) / 60) + " mins";
+
   const [selected, setSelected] = useState("");
 
   const route = useRoute<RouteProp<NavParams, "ChooseRideScreen">>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "Choose a ride - Travel time...",
+      headerTitle: `Choose a ride - ${infoMatrix?.distance.text}`,
       headerStyle: { backgroundColor: "#f5f5f5" },
       headerShadowVisible: false,
       headerBackTitleVisible: false,
     });
-  }, []);
+  }, [infoMatrix]);
 
   function selectRideHandler(title: string) {
     setSelected(title);
@@ -108,9 +113,17 @@ const ChooseRideScreen: React.FC = () => {
             <Text fontWeight="bold" fontSize="md">
               {item.title}
             </Text>
-            <Text color="trueGray.500">Travel time...</Text>
+            <Text color="trueGray.500">
+              {item.title != "Arride Express" && infoMatrix?.duration.text}
+              {item.title === "Arride Express" && expressTime}
+            </Text>
           </Flex>
-          <Heading>$9</Heading>
+          <Heading>
+            {new Intl.NumberFormat("en-us", {
+              style: "currency",
+              currency: "USD",
+            }).format((infoMatrix?.duration.value! * item.multiplier) / 100)}
+          </Heading>
         </Flex>
       </Pressable>
     );

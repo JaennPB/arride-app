@@ -1,10 +1,14 @@
 import { useEffect, useRef } from "react";
+
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import { setMatrix } from "../app/mainSlice";
 
-import { useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 
 const Map: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const origin = useAppSelector((state) => state.origin)!;
   const destination = useAppSelector((state) => state.destination);
 
@@ -16,6 +20,24 @@ const Map: React.FC = () => {
     mapRef.current?.fitToSuppliedMarkers(["origin", "destination"], {
       edgePadding: { top: 10, right: 10, bottom: 10, left: 10 },
     });
+
+    async function getTravelTime() {
+      try {
+        const URL = `https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination?.description}&origins=${origin?.description}&units=metric&key=AIzaSyDu0tEXYHRZPyzekpYDWQ-kj5Sc4ry8X3w`;
+
+        const res = await fetch(URL);
+        const data = await res.json();
+
+        const duration = data.rows[0].elements[0].duration;
+        const distance = data.rows[0].elements[0].distance;
+
+        dispatch(setMatrix({ duration, distance }));
+      } catch {
+        console.log("Error getting data");
+      }
+    }
+
+    getTravelTime();
   }, [origin, destination]);
 
   return (

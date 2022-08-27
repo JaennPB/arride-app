@@ -6,17 +6,28 @@ type CoordsData = {
   description: string | undefined;
 };
 
+type MatrixInfo = {
+  distance: {
+    text: string;
+    value: number;
+  };
+  duration: {
+    text: string;
+    value: number;
+  };
+};
+
 interface MainState {
   origin: CoordsData | undefined;
   destination: CoordsData | undefined;
-  ETA: number | undefined;
+  infoMatrix: MatrixInfo | undefined;
   rideType: "ride" | "package";
 }
 
 const initialState: MainState = {
   origin: undefined,
   destination: undefined,
-  ETA: undefined,
+  infoMatrix: undefined,
   rideType: "ride",
 };
 
@@ -30,8 +41,8 @@ const mainSlice = createSlice({
     setDestination: (state, action: PayloadAction<CoordsData>) => {
       state.destination = action.payload;
     },
-    setETA: (state, action: PayloadAction<number>) => {
-      state.ETA = action.payload;
+    setMatrix: (state, action: PayloadAction<MatrixInfo>) => {
+      state.infoMatrix = action.payload;
     },
     setRideType: (state, action: PayloadAction<"ride" | "package">) => {
       state.rideType = action.payload;
@@ -39,6 +50,6 @@ const mainSlice = createSlice({
   },
 });
 
-export const { setOrigin, setDestination, setETA, setRideType } =
+export const { setOrigin, setDestination, setMatrix, setRideType } =
   mainSlice.actions;
 export default mainSlice.reducer;
