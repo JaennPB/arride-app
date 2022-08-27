@@ -1,4 +1,4 @@
-import { Divider, Flex, Heading } from "native-base";
+import { Flex } from "native-base";
 
 import {
   GooglePlaceData,
@@ -35,11 +35,6 @@ const DestinationScreen: React.FC = () => {
 
   return (
     <>
-      <Flex py={5}>
-        <Heading textAlign="center" color="trueGray.700">
-          Good morning, Jaenn
-        </Heading>
-      </Flex>
       <Flex px={5}>
         <GooglePlacesAutocomplete
           placeholder="Where to?"
@@ -61,10 +56,9 @@ const DestinationScreen: React.FC = () => {
           }
         />
       </Flex>
-      <Flex flexDir="row" justify="space-around" my={5}>
+      <Flex flexDir="row" justify="space-around" my={2}>
         <RideTypeButtons />
       </Flex>
-      <Divider />
       <Flex px={5}>
         <Favorites />
       </Flex>

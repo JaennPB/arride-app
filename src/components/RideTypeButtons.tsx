@@ -3,22 +3,22 @@ import { useState } from "react";
 
 import { useAppNavigation } from "../hooks/navigationHooks";
 
-import { setRideType } from "../app/mainSlice";
-import { useAppSelector } from "../hooks/reduxHooks";
-
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const RideTypeButtons: React.FC = () => {
   const navigation = useAppNavigation();
 
-  const rideType = useAppSelector((state) => state.rideType);
+  const destination = useAppSelector((state) => state.destination);
 
-  const [rideTypeCache, setRideTypeCache] = useState("ride");
+  const [rideType, setRideType] = useState<"ride" | "package">("ride");
 
   function toggleTypeAndNavigate(type: "ride" | "package") {
     setRideType(type);
-    setRideTypeCache(type);
-    navigation.navigate("ChooseRideScreen", { rideType });
+
+    if (destination) {
+      navigation.navigate("ChooseRideScreen", { rideType: type });
+    }
   }
 
   return (
@@ -28,7 +28,7 @@ const RideTypeButtons: React.FC = () => {
           alignItems="center"
           justifyContent="center"
           space={2}
-          bg={rideTypeCache === "ride" ? "trueGray.700" : null}
+          bg={rideType === "ride" ? "trueGray.700" : null}
           p={2}
           borderRadius={20}
           w={120}
@@ -36,12 +36,9 @@ const RideTypeButtons: React.FC = () => {
           <Ionicons
             name="ios-car-sport-sharp"
             size={24}
-            color={rideTypeCache !== "ride" ? "#404040" : "white"}
+            color={rideType === "ride" ? "white" : "#404040"}
           />
-          <Text
-            color={rideTypeCache !== "ride" ? "trueGray.700" : "white"}
-            fontSize={16}
-          >
+          <Text color={rideType === "ride" ? "white" : "#404040"} fontSize={16}>
             Ride
           </Text>
         </HStack>
@@ -50,7 +47,7 @@ const RideTypeButtons: React.FC = () => {
         <HStack
           alignItems="center"
           space={2}
-          bg={rideTypeCache === "package" ? "trueGray.700" : null}
+          bg={rideType === "package" ? "trueGray.700" : null}
           p={2}
           borderRadius={20}
           justifyContent="center"
@@ -59,10 +56,10 @@ const RideTypeButtons: React.FC = () => {
           <MaterialCommunityIcons
             name="package"
             size={24}
-            color={rideTypeCache !== "package" ? "#404040" : "white"}
+            color={rideType === "package" ? "white" : "#404040"}
           />
           <Text
-            color={rideTypeCache !== "package" ? "trueGray.700" : "white"}
+            color={rideType === "package" ? "white" : "#404040"}
             fontSize={16}
           >
             Package

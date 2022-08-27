@@ -31,7 +31,14 @@ const Favorites: React.FC = () => {
         alignItems="center"
         _pressed={{ opacity: 0.5 }}
       >
-        <Box bg="trueGray.300" borderRadius={100} p={3} mr={2}>
+        <Box
+          bg="trueGray.300"
+          borderRadius={100}
+          p={3}
+          mr={2}
+          alignItems="center"
+          justifyContent="center"
+        >
           {item.icon === "home" && (
             <Ionicons name="home" size={24} color="white" />
           )}
@@ -51,7 +58,9 @@ const Favorites: React.FC = () => {
       </Pressable>
     );
   }
+
   return (
+    // TODO: add divider
     <FlatList
       data={DATA}
       renderItem={renderFavoritesListHandler}

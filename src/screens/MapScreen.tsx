@@ -15,10 +15,15 @@ const MapScreen: React.FC = () => {
         <Map />
       </Flex>
       <KeyboardAvoidingView flex={1} behavior="padding">
-        <NestedStack.Navigator screenOptions={{ headerShown: false }}>
+        <NestedStack.Navigator>
           <NestedStack.Screen
             name="DestinationScreen"
             component={DestinationScreen}
+            options={{
+              headerTitle: "Good morning, Jaenn",
+              headerStyle: { backgroundColor: "#f5f5f5" },
+              headerShadowVisible: false,
+            }}
           />
           <NestedStack.Screen
             name="ChooseRideScreen"
